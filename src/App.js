@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './componentes/Home';
 import Suscripcion from './componentes/Suscripcion';
 import logo from './logo.svg';
+import BarraNav from './componentes/BarraNav';
 import './App.css';
 
 class App extends Component {
@@ -14,8 +15,8 @@ class App extends Component {
         <header className="App-header">
           <img  src={logo} className="App-logo" alt="logo" />
           <h1 className="App-vacio">  </h1>
-          <h1 className="App-title">Bienvenido a Flow !!!</h1>
         </header>
+        <BarraNav/>
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />

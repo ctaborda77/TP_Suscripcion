@@ -139,7 +139,8 @@ verifCampos(){
         .then(JSON.stringify(datosEnviados))
         .then(function (data) {
           console.log('Request succeeded with JSON response', data);
-          window.Materialize.toast('Request succeeded with JSON response', 1000);
+          window.Materialize.toast('Gracias por suscribirse !!',2000);
+
         })
         .catch(function (error) {
           console.log('Request failed', error);

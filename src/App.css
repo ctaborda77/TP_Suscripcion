@@ -15,7 +15,7 @@ body {
 .App-header {
   background-color: #222;
   height: 170px;
-  padding: 20px;
+  padding: 30px;
   color: white;
   text-align: center;
 }
@@ -53,6 +53,9 @@ h3 {
   float: none;
   margin: 0 auto;
 }
+/*.navbar{
+  background-color: #222;
+}*/
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
