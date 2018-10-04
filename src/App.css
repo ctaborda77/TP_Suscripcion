@@ -1,0 +1,60 @@
+body {
+  background-color: aqua;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+  color: black;
+}
+
+.App-header {
+  background-color: #222;
+  height: 170px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+h3 {
+  text-align: center;
+  align-items: center;
+  color: black;
+}
+
+.Suscripciones {
+  background-color: blue;
+  display: block;
+  width: 30%;
+  margin-left: 150px;
+  margin-right: 100px;
+  margin-top: 50px;
+}
+.showBlock {
+  width: 50%;
+}
+
+.Suscripcion {
+  color: black;
+}
+.col-center{
+  float: none;
+  margin: 0 auto;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
