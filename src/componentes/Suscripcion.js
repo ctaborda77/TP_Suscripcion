@@ -4,6 +4,7 @@ import { CountryDropdown } from 'react-country-region-selector';
 import Cards from 'react-credit-cards'
 import 'react-credit-cards/lib/styles-compiled.css';
 import CreditCardInput from 'react-credit-card-input';
+import * as EmailValidator from 'email-validator';
 import '../App.css';
 
 class Suscripcion extends Component {
@@ -29,37 +30,18 @@ class Suscripcion extends Component {
     this.setState({ country: val });
   }
 
-  handleChangeName(event) {
-    this.setState({ name: event.target.value });
-  }
-
-  handleChangeApellido(event) {
-    this.setState({ apellido: event.target.value });
-  }
-
-  handleChangeEmail(event) {
-    this.setState({ email: event.target.value });
-  }
-
-  handleChangetarjNum(event) {
-    this.setState({ tarjNum: event.target.value });
-  }
-
-  handleChangeFExpir(event) {
-    this.setState({ fExpir: event.target.value });
-  }
-
-  handleChangeCVC(event) {
-    this.setState({ cvc: event.target.value });
-  }
+  handleChange(e){
+    this.setState({
+        [e.target.name]: e.target.value
+    })}
 
   pagoPremium(){
     if (this.state.tipo === 'premium'){
       return (
       <div><CreditCardInput containerClassName="creditcard" inputClassName="inputCC"
-        cardNumberInputProps={{ onChange: this.handleChangetarjNum.bind(this) }}
-        cardExpiryInputProps={{ onChange: this.handleChangeFExpir.bind(this) }}
-        cardCVCInputProps={{ onChange: this.handleChangeCVC.bind(this) }}
+        cardNumberInputProps={{ onChange: e => this.handleChange(e), name: "tarjNum" }}
+        cardExpiryInputProps={{ onChange: e => this.handleChange(e), name:"fExpir" }}
+        cardCVCInputProps={{ onChange: e => this.handleChange(e), name: "cvc" }}
           />
         <Cards number={this.state.tarjNum}
 			name={this.state.name + " " + this.state.apellido}
@@ -69,11 +51,12 @@ class Suscripcion extends Component {
       </div>  );
     }
   }
-   
+
+
 verifCampos(){
  let verificacion = false;
 
- if((this.state.name.length > 0) &&
+ if((this.state.name.length > 0 ) &&
       (this.state.apellido.length > 0) &&
       (this.state.email.length > 0) &&
       (this.state.country.length > 0)){
@@ -86,14 +69,18 @@ verifCampos(){
     verificacion = false;
   }
   }
+  if (!EmailValidator.validate(this.state.email)){
+    verificacion = false;
+  }
   return verificacion;
 }
 
  suscribirse() { 
    if (this.verifCampos()){
     this.envioData();
+    console.log(this.state);
    }else{
-    window.Materialize.toast('Campos incompletos', 1000);
+    window.Materialize.toast('Error o faltante de datos en algun campo', 2000);
    }
     
   }
@@ -107,7 +94,7 @@ verifCampos(){
         
         datosEnviados = {
             tipo: this.state.tipo,
-            nombre: this.state.name,
+            name: this.state.name,
             apellido: this.state.apellido,
             pais: this.state.country,
             email: this.state.email,
@@ -118,7 +105,7 @@ verifCampos(){
     } else {
         datosEnviados = {
             tipo: this.state.tipo,
-            nombre: this.state.name,
+            name: this.state.name,
             apellido: this.state.apellido,
             pais: this.state.country,
             email: this.state.email,
@@ -151,19 +138,18 @@ verifCampos(){
   render() {
     const { country } = this.state;
 
-
     return (
       <div className="Suscripcion">
         <Row>
           <form>
-            <Input id="userName" s={6} label="Nombre" onChange={this.handleChangeName.bind(this)} />
-            <Input s={6} label="Apellido" validate onChange={this.handleChangeApellido.bind(this)} />
+            <Input id="userName" s={6} label="Nombre" validate name="name" onChange={e => this.handleChange(e)}/>
+            <Input s={6} label="Apellido" validate name="apellido"  onChange={e => this.handleChange(e)} />
             <CountryDropdown 
               value={country}
               onChange={(val) => this.selectCountry(val)} className="showBlock" />
 
-            <Input type="email" label="Email" s={6} validate 
-            onChange={this.handleChangeEmail.bind(this)} />
+            <Input type="email" label="Email" s={6} validate name="email"
+            onChange={e => this.handleChange(e)} />
           </form>
         </Row>
         <div className="cvcDiv"> {this.pagoPremium()} </div>
